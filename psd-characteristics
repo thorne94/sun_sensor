@@ -1,0 +1,32 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Nov 13 14:52:39 2019
+
+@author: thorne
+"""
+
+import numpy as np 
+
+#Variables
+d = .0003; 
+S_max = 1361; #W/m^2
+S_psd = 0.6; #A/W
+V_ref = 1.024; #V
+
+#Current calculation 
+I_max = np.power((d/2),2) * np.pi * S_max * S_psd; 
+
+#Current per plane 
+I_plane = I_max/2;
+
+#Op amp resistor calculator 
+R_opamp = V_ref/I_plane; 
+#Max input to ADC V_ref +- 0.3
+R_ideal = R_opamp * 0.98;
+
+
+#Voltage input per pin 
+V_in = (R_ideal) * I_plane;
+
+"Ideal resistor is a 34K which produces a .99V at the input of the ADC"
